@@ -29,93 +29,88 @@ api:
 
 ota:
   password: ""
-  
+
 uart:
-  - rx_pin: D2
+  - rx_pin: GPIO2 # The UART0 RX, hard pin number: 24
     baud_rate: 115200
-    id: uart_bus  
+    id: uart_bus
 
 sensor:
   - platform: custom
     lambda: |-
       auto dsmr_p1_sensor = new CustomP1UartComponent(id(uart_bus));
       App.register_component(dsmr_p1_sensor);
-      return {dsmr_p1_sensor->s_energy_delivered_tariff1, dsmr_p1_sensor->s_energy_delivered_tariff2, dsmr_p1_sensor->s_energy_returned_tariff1, dsmr_p1_sensor->s_energy_returned_tariff2, dsmr_p1_sensor->s_power_delivered, dsmr_p1_sensor->s_power_returned, dsmr_p1_sensor->s_voltage_l1, dsmr_p1_sensor->s_voltage_l2, dsmr_p1_sensor->s_voltage_l3, dsmr_p1_sensor->s_current_l1, dsmr_p1_sensor->s_current_l2, dsmr_p1_sensor->s_current_l3, dsmr_p1_sensor->s_power_delivered_l1, dsmr_p1_sensor->s_power_delivered_l2, dsmr_p1_sensor->s_power_delivered_l3, dsmr_p1_sensor->s_power_returned_l1, dsmr_p1_sensor->s_power_returned_l2, dsmr_p1_sensor->s_power_returned_l3, dsmr_p1_sensor->s_gas_device_type, dsmr_p1_sensor->s_gas_valve_position, dsmr_p1_sensor->s_gas_delivered};
-
+      return {dsmr_p1_sensor->s_energy_delivered_tariff1, dsmr_p1_sensor->s_energy_delivered_tariff2, dsmr_p1_sensor->s_energy_returned_tariff1, dsmr_p1_sensor->s_energy_returned_tariff2, dsmr_p1_sensor->s_power_delivered, dsmr_p1_sensor->s_power_returned, dsmr_p1_sensor->s_voltage_l1, dsmr_p1_sensor->s_current_l1, dsmr_p1_sensor->s_power_delivered_l1, dsmr_p1_sensor->s_power_returned_l1, dsmr_p1_sensor->s_gas_device_type, dsmr_p1_sensor->s_gas_valve_position, dsmr_p1_sensor->s_gas_delivered, dsmr_p1_sensor->s_thermal_device_type, dsmr_p1_sensor->s_thermal_valve_position, dsmr_p1_sensor->s_thermal_delivered, dsmr_p1_sensor->s_water_device_type, dsmr_p1_sensor->s_water_valve_position, dsmr_p1_sensor->s_water_delivered, dsmr_p1_sensor->s_slave_device_type, dsmr_p1_sensor->s_slave_valve_position, dsmr_p1_sensor->s_slave_delivered, dsmr_p1_sensor->s_electricity_failures, dsmr_p1_sensor->s_electricity_long_failures, dsmr_p1_sensor->s_electricity_sags_l1, dsmr_p1_sensor->s_electricity_swells_l1};
     sensors:
     - name: "Consumption Low Tarif Sensor"
       unit_of_measurement: kWh
       accuracy_decimals: 3
     - name: "Consumption High Tarif Sensor"
       unit_of_measurement: kWh
-      accuracy_decimals: 3  
+      accuracy_decimals: 3
     - name: "Return Low Tarif Sensor"
       unit_of_measurement: kWh
       accuracy_decimals: 3
     - name: "Return High Tarif Sensor"
       unit_of_measurement: kWh
-      accuracy_decimals: 3  
+      accuracy_decimals: 3
     - name: "Actual Consumption Sensor"
       unit_of_measurement: W
-      accuracy_decimals: 3      
+      accuracy_decimals: 3
       filters:
         - multiply: 1000
     - name: "Actual Delivery Sensor"
       unit_of_measurement: W
-      accuracy_decimals: 3      
+      accuracy_decimals: 3
       filters:
         - multiply: 1000
     - name: "Instant Voltage L1 Sensor"
       unit_of_measurement: V
-      accuracy_decimals: 3      
-    - name: "Instant Voltage L2 Sensor"
-      unit_of_measurement: V
-      accuracy_decimals: 3      
-    - name: "Instant Voltage L3 Sensor"
-      unit_of_measurement: V
-      accuracy_decimals: 3      
+      accuracy_decimals: 3
     - name: "Instant Current L1 Sensor"
       unit_of_measurement: A
-      accuracy_decimals: 3      
-    - name: "Instant Current L2 Sensor"
-      unit_of_measurement: A
-      accuracy_decimals: 3      
-    - name: "Instant Current L3 Sensor"
-      unit_of_measurement: A
-      accuracy_decimals: 3      
+      accuracy_decimals: 3
     - name: "Power Delivered L1 Sensor"
       unit_of_measurement: W
-      accuracy_decimals: 3      
-      filters:
-        - multiply: 1000
-    - name: "Power Delivered L2 Sensor"
-      unit_of_measurement: W
-      accuracy_decimals: 3      
-      filters:
-        - multiply: 1000
-    - name: "Power Delivered L3 Sensor"
-      unit_of_measurement: W
-      accuracy_decimals: 3      
+      accuracy_decimals: 3
       filters:
         - multiply: 1000
     - name: "Power Returned L1 Sensor"
       unit_of_measurement: W
-      accuracy_decimals: 3      
-      filters:
-        - multiply: 1000
-    - name: "Power Returned L2 Sensor"
-      unit_of_measurement: W
-      accuracy_decimals: 3      
-      filters:
-        - multiply: 1000
-    - name: "Power Returned L3 Sensor"
-      unit_of_measurement: W
-      accuracy_decimals: 3      
+      accuracy_decimals: 3
       filters:
         - multiply: 1000
     - name: "Gas device type Sensor"
-    - name: "Gas valve position Sensor"  
+    - name: "Gas valve position Sensor"
     - name: "Gas Meter M3 Sensor"
       unit_of_measurement: m3
-      accuracy_decimals: 3      
-      
+      accuracy_decimals: 3
+    - name: "Thermal device type Sensor"
+    - name: "Thermal valve position Sensor"
+    - name: "Thermal Meter Delivered Sensor"
+      accuracy_decimals: 3
+    - name: "Water device type Sensor"
+    - name: "Water valve position Sensor"
+    - name: "Water Meter Delivered Sensor"
+      accuracy_decimals: 3
+    - name: "Slave device type Sensor"
+    - name: "Slave valve position Sensor"
+    - name: "Slave Meter Delivered Sensor"
+      accuracy_decimals: 3
+    - name: "Short Power Outages Sensor"
+      accuracy_decimals: 0
+    - name: "Long Power Outages Sensor"
+      accuracy_decimals: 0
+    - name: "Short Power Drops Sensor"
+      accuracy_decimals: 0
+    - name: "Short Power Peaks Sensor"
+      accuracy_decimals: 0
+
+text_sensor:
+  - platform: custom
+    lambda: |-
+      auto dsmr_p1_sensor = new CustomP1UartComponent(id(uart_bus));
+      App.register_component(dsmr_p1_sensor);
+      return {dsmr_p1_sensor->s_electricity_failure_log};
+    text_sensors:
+    - name: "Power Outages Log"
